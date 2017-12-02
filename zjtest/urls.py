@@ -1,3 +1,4 @@
+# _*_ encoding:utf-8 _*_
 """zjtest URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -15,7 +16,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+# 为模板引入视图
+from zj.views import getform,sub_form
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    # 对应填写表单form中的action,表单提交需要加{% csrf_token %}
+    url('^form/$', sub_form),
 ]

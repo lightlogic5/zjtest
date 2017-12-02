@@ -1,3 +1,5 @@
+# _*_ encoding:utf-8 _*_
+# python2遇到中文需要指明
 """
 Django settings for zjtest project.
 
@@ -11,9 +13,12 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+# 用于apps文件夹中的文件引用，路径方面
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'zj',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -52,11 +58,11 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'zjtest.urls'
 
+# 指明templates文件获取路径
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,11 +80,15 @@ WSGI_APPLICATION = 'zjtest.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
+# 数据库配置
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': "zjtest",
+        'USER': 'root',
+        'PASSWORD': "",
+        'HOST': "127.0.0.1"
     }
 }
 
@@ -118,5 +128,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
+# 配置静态文件目录
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
